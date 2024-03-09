@@ -1,14 +1,33 @@
-import { component$ } from "@builder.io/qwik";
+import { component$, $ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 
 import Counter from "../components/starter/counter/counter";
 import Hero from "../components/starter/hero/hero";
 import Infobox from "../components/starter/infobox/infobox";
 import Starter from "../components/starter/next-steps/next-steps";
+import styles from "./../components/starter/hero/hero.module.css";
+
+const addRandomCookie = $(() => {
+  console.log("document.cookie will be changed");
+
+  document.cookie =
+    "myCookie=example; expires=Fri, 31 Dec 2024 23:59:59 GMT; path=/; domain=localhost";
+
+  console.log("document.cookie:", document.cookie);
+});
 
 export default component$(() => {
   return (
     <>
+      <div class={["container", styles.hero]}>
+        <a
+          href="demo/todolist/"
+          onClick$={addRandomCookie}
+          // onClick$={() => console.log("work?")} // even this sometimes works, sometimes doesnt
+        >
+          Click this anchor to add a cookie and send a request to the server
+        </a>
+      </div>
       <Hero />
       <Starter />
 
